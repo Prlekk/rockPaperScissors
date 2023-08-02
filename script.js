@@ -1,104 +1,104 @@
+var playerScore = 0;
+var computerScore = 0;
+var roundNumber = 2;
+
+checkScore = () => {
+    if(playerScore == 5)
+    {
+        let winner = document.getElementById('winner');
+        winner.textContent = "Player is the winner!";
+        playerScore = 0;
+        computerScore = 0;
+        roundNumber = 1;
+    }else if(computerScore == 5) {
+        let winner = document.getElementById('winner');
+        winner.textContent = "Computer is the winner!";
+        playerScore = 0;
+        computerScore = 0;
+        roundNumber = 1;
+    }                                           
+}
+
 getComputerChoice = () => {
-    const num = Math.floor(Math.random() * 3)
-    if(num == 0)
-    {
-        return "Rock"
+    const num = Math.floor(Math.random() * 3);
+    if (num === 0) {
+        return "Rock";
+    } else if (num === 1) {
+        return "Paper";
+    } else {
+        return "Scissors";
     }
-    if(num == 1)
-    {
-        return "Paper"
-    }
-    return "Scissors"
-}
+};
 
-playerSelection = () => {
-    let player = prompt()
-    player = player.toLowerCase()
-    let computer = getComputerChoice()
-    //Computer is rock
-    if(computer === "Paper" && player === "rock")
-    {
-        console.log("You Lose! Paper beats Rock")
-        return 0
-    }
-    if(computer == "Rock" && player === "rock")
-    {
-        console.log("You Tie!")
-        return 2
-    }
-    if(computer === "Scissors" && player === "rock")
-    {
-        console.log("You Win! Scissors lose to Rock")
-        return 1
-    }
-    //Computer is paper
-    if(computer === "Paper" && player === "paper")
-    {
-        console.log("You Tie!")
-        return 2
-    }
-    if(computer == "Rock" && player === "paper")
-    {
-        console.log("You Win! Rock lose to Paper")
-        return 1
-    }
-    if(computer === "Scissors" && player === "paper")
-    {
-        console.log("You Lose! Scissors beats Paper")
-        return 0
-    }
-    //Computer is scissors
-    if(computer === "Paper" && player === "scissors")
-    {
-        console.log("You Win! Paper lose to Scissors")
-        return 1
-    }
-    if(computer == "Rock" && player === "scissors")
-    {
-        console.log("You Lose! Rock beats scissors")
-        return 0
-    }
-    if(computer === "Scissors" && player === "scissors")
-    {
-        console.log("You Tie!")
-        return 2
-    }
-}   
+playerSelection = (input) => {
+    let player = input;
+    let computer = getComputerChoice();
+    let result = document.getElementById('result');
+    let score = document.getElementById('score');
+    let rounds = document.getElementById('round');
+    let resetWinnerDiv = document.getElementById('winner').textContent = "";
 
-game = () => {
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i = 0; i < 5; i++)
-    {
-        let resultOfRound = playerSelection()
-        if(resultOfRound == 1)
-        {
-            playerScore++
-        }
-        if(resultOfRound == 0)
-        {
-            computerScore++
-        }                          
+    rounds.textContent = "Round " + roundNumber;
+    // Compare player and computer choices
+    if (computer === "Paper" && player === "rock") {
+        result.textContent = "You Lose! Paper beats Rock";
+        computerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 0;
+    } else if (computer === "Rock" && player === "rock") {
+        result.textContent = "You Tie!";
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 2;
+    } else if (computer === "Scissors" && player === "rock") {
+        result.textContent = "You Win! Rock beats Scissors";
+        playerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 1;
+    } else if (computer === "Paper" && player === "paper") {
+        result.textContent = "You Tie!";
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 2;
+    } else if (computer === "Rock" && player === "paper") {
+        result.textContent = "You Win! Paper beats Rock";
+        playerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 1;
+    } else if (computer === "Scissors" && player === "paper") {
+        result.textContent = "You Lose! Scissors beats Paper";
+        computerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 0;
+    } else if (computer === "Paper" && player === "scissors") {
+        result.textContent = "You Win! Scissors beats Paper";
+        playerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 1;
+    } else if (computer === "Rock" && player === "scissors") {
+        result.textContent = "You Lose! Rock beats Scissors";
+        computerScore++;
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 0;
+    } else if (computer === "Scissors" && player === "scissors") {
+        result.textContent = "You Tie!";
+        score.textContent = "Score is " + playerScore + "-" + computerScore;
+        checkScore();
+        roundNumber++
+        return 2;
     }
-    let result
-    let winner
-    if(playerScore == computerScore)
-    {
-        result = "Result: " + playerScore + "-" + computerScore
-        winner = "No one wins!"
-    }
-    if(playerScore > computerScore)
-    {
-        result = "Result: " + playerScore + "-" + computerScore
-        winner = "Player wins!"
-    }
-    if(playerScore < computerScore)
-    {
-        result = "Result: " + playerScore + "-" + computerScore
-        winner = "Computer wins"
-    }
-    console.log(result)
-    console.log(winner)
-}
-
-game()
+};
